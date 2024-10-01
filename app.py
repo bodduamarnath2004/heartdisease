@@ -6,7 +6,7 @@ import io
 import base64
 
 app = Flask(__name__)
-model = tf.keras.models.load_model('model.keras')
+model = tf.keras.models.load_model('model1.keras')
 
 @app.route('/', methods=['GET', 'POST'])
 def upload():
