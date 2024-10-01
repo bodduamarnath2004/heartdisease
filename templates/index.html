@@ -22,8 +22,6 @@
             align-items: center;
         }
 
-      
-
         input[type="submit"] {
             background-color: #4CAF50;
             color: white;
@@ -45,35 +43,57 @@
             margin-bottom: 30px;
         }
 
-        div{
+        div {
             display: flex;
             align-items: center;
             margin-top: 50px;
             justify-content: center;
         }
-        img{
+
+        img {
             width: 200px;
             height: 200px;
+            display: none;
         }
-       
     </style>
 </head>
 
 <body>
     <marquee behavior="" direction="">Welcome to our website</marquee>
-    <p>Welcome to Heart disease prediction</p>
+    <p>Welcome to Heart Disease Prediction</p>
+
+    <!-- Form for uploading an image -->
     <form action="/" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" id="k">
+        <input type="file" name="image" id="imageInput">
         <input type="submit" value="Upload">
     </form>
-    {% if result_display %}
-    {% if img_data %}
+
+    <!-- Placeholder for displaying the uploaded image -->
     <div>
-        <img src="data:image/png;base64,{{ img_data }}" alt="Uploaded Image">
+        <img id="imagePreview" alt="Uploaded Image">
     </div>
-    {% endif %}
-    <p>{{ predict }}</p>
-    {% endif %}
+
+    <p id="resultText">{{predict}}</p>
+
+    <script>
+        // JavaScript to preview the uploaded image
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            var image = event.target.files[0]; // Get the uploaded file
+
+            if (image) {
+                var reader = new FileReader(); // Create a FileReader to read the file
+
+                reader.onload = function (e) {
+                    // Set the src attribute of the image to the file content
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block'; // Display the image
+                };
+
+                // Read the image as a data URL
+                reader.readAsDataURL(image);
+            }
+        });
+    </script>
 </body>
 
 </html>
